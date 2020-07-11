@@ -6,7 +6,7 @@ import tkinter.filedialog as tkf
 
 
 #--Variables--
-folderNum = 0
+folderNum = 'None'
 folderPath = "                        Select a folder                        "
 foldersName = "             Please enter a name             "
 
@@ -29,65 +29,30 @@ def CreateFolders():
     global folderNum
     global folderPath
     global foldersName
-
+    global windowVar
+    global quanSpn
+    
     folderNum = windowVar.get()
     folderPath = dirField.get()
     foldersName = nameField.get()
 
-    
-    
-    if folderPath == "                        Select a folder                        " : 
-        print("SELECT DIRECTORY ERROR")
-        
-    
-    if foldersName == "             Please enter a name             " : 
-        print("NAME ERROR")
-        
-
-    if folderNum == 'None' :
-        print("NUMBER SELECT ERROR")
-        
+    if folderNum == 'None':
+       windowVar.set('2')
+       quanSpn.update()
+       folderNum = windowVar.get()
 
 
     loops = int(folderNum)
+    print(loops)
     fullPath = folderPath + '/' + foldersName
 
-    
 
     if not os.path.exists(fullPath) : 
         while loops > 0 :
             os.makedirs(fullPath + f"{loops}", exist_ok=True)
             loops -= 1 
-    else:
-        print("NAME ERROR")
- 
-
-
-# def InvokeError(errorType): 
-#     errWindow = tk.Canvas(window, height=5, width=5)
-
-#     if errorType == "SELECT DIRECTORY ERROR" : 
-#         errWindow.create_text(x=100, y=100, text="Select a folder")
-#         errWindow.place(x=100, y=100)
-#         errWindow.config(state='readonly')
-#         return
-#         #print("SELECT DIRECTORY ERROR")
+   
     
-#     if errorType == "NAME ERROR" : 
-#         errWindow.create_text(x=100, y=100, text="Enter a name")
-#         errWindow.place(x=100, y=100)
-#         errWindow.config(state='readonly')
-#         return
-#         #print("NAME ERROR")
-
-#     if errorType == "NUMBER SELECT ERROR" :
-#         errWindow.create_text(x=100, y=100, text="Choose a number")
-#         errWindow.place(x=100, y=100)
-#         errWindow.config(state='readonly')
-#         return
-        #print ("NUMBER SELECT ERROR")
-
-
 
 
 #--Windows--
@@ -98,8 +63,8 @@ window.title('Folder Creator')
 window.attributes('-alpha', 0.97)
 window.attributes('-transparent', "true")
 window.config(background="#2B2929")
-window.maxsize(width=430, height=80)
-window.minsize(width=430, height=80)
+window.maxsize(width=410, height=80)
+window.minsize(width=410, height=80)
 #Main Window____________________________________________________________________________________________________
 
 
