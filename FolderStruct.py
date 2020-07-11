@@ -1,9 +1,9 @@
 import os
 import tkinter as tk
+import subprocess as sp
+import tkinter.ttk as ttk
 import tkinter.font as tf
 import tkinter.filedialog as tkf
-
-import subprocess as sp
 
 
 
@@ -24,7 +24,7 @@ def SelectDirectory():
     dirField.config(state='readonly')
 
     return dire
-    
+
 
 
 def CreateFolders():
@@ -63,6 +63,7 @@ def CreateFolders():
         InvokeError("NAME ERROR")
  
 
+
 def InvokeError(errorType): 
     errWindow = tk.Canvas(window, height=5, width=5)
 
@@ -90,37 +91,55 @@ def InvokeError(errorType):
 
 
 
-
 #--Windows--
 #Main Window
 window = tk.Tk()
 window.geometry("300x400")
 window.title('Folder Creator')
+window.attributes('-alpha', 0.97)
+window.attributes('-topmost', "true")
+window.attributes('-transparent', "true")
+window.config(background="#25272A")
 window.maxsize(width=300, height=400)
 window.minsize(width=300, height=400)
 #Main Window____________________________________________________________________________________________________
 
 
+
+#style 
+style = ttk.Style()
+style.theme_use("aqua")
+
+style.configure('TEntry', foreground='white', background='#818284', bd=9)
+style.configure('TButton', foreground='black', font=('San Fransisco', 12), bd=0)
+#Style_______________________________________________________________________________________________
+
+
+
 #Choosing Directory 
-dirField = tk.Entry(window, bd=2)
-dirField.place(x=100, y=96)
+dirField = tk.Entry(window)
+dirField.place(x=105, y=10)
 dirField.insert(0, folderPath)
 dirField.config(state='readonly')
 
-dirBtn = tk.Button(window, text="Choose Folder", command = lambda : (folderPath := SelectDirectory()))
-dirBtn.place(x=0, y=100)
+dirBtn = tk.Button(window, text="Choose", command = lambda : (folderPath := SelectDirectory()))
+dirBtn.config(width=10, bd=0, highlightthickness=0, font=('San Fransisco', 12))
+dirBtn.place(x=8, y=15)
 #Choosing Directory______________________________________________________________________________________________ 
+
 
 
 #Entering Name
 nameLbl = tk.Label(window, text="Name : ")
 nameLbl.place(x=0, y=200)
 
-nameField = tk.Entry(window, width=26, bd=2)
+nameField = tk.Entry(window, width=26)
+nameField.config(bd=0)
 nameField.place(x=50, y=198)
 nameField.insert(0, foldersName)
 nameField.bind("<FocusIn>", lambda a: nameField.delete(0, 'end'))
 #Entering Name__________________________________________________________________________________________________
+
 
 
 #Selecting Quanity 
@@ -132,23 +151,16 @@ windowVar = tk.StringVar(window)
 windowVar.set(numList[0])
 
 quanDrp = tk.OptionMenu(window, windowVar, *numList)
-#quanDrp.config(fg="#191919", bg="#191919", font=("San Francisco",(10)))
 quanDrp.place(x=125, y=250)
 #Selecting Quanity______________________________________________________________________________________________ 
 
 
+
 #Creating Folders 
 submitBtn = tk.Button(window, text="Create Folders", command = lambda : windowVar.set(CreateFolders()))
-#submitBtn.config(bg = "#191919")
 submitBtn.place(x=98, y=300)
-
 #Creating Folders_______________________________________________________________________________________________
 
-
-
-#style 
-deFont = tf.Font(family="San Francisco", size = 14, )
-#Style_______________________________________________________________________________________________
 
 
 
