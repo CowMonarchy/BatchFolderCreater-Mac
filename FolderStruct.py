@@ -1,7 +1,5 @@
 import os
 import tkinter as tk
-import subprocess as sp
-import tkinter.ttk as ttk
 import tkinter.font as tf
 import tkinter.filedialog as tkf
 
@@ -9,8 +7,8 @@ import tkinter.filedialog as tkf
 
 #--Variables--
 folderNum = 0
-folderPath = "Select a folder"
-foldersName = "Please enter a name"
+folderPath = "                        Select a folder                        "
+foldersName = "             Please enter a name             "
 
 
 
@@ -36,17 +34,18 @@ def CreateFolders():
     folderPath = dirField.get()
     foldersName = nameField.get()
 
-
-    if folderPath == "Select a folder" : 
-        InvokeError("SELECT DIRECTORY ERROR")
+    
+    
+    if folderPath == "                        Select a folder                        " : 
+        print("SELECT DIRECTORY ERROR")
         
     
-    if foldersName == "Please enter a name" : 
-        InvokeError("NAME ERROR")
+    if foldersName == "             Please enter a name             " : 
+        print("NAME ERROR")
         
 
-    if folderNum == "None" :
-        InvokeError("NUMBER SELECT ERROR")
+    if folderNum == 'None' :
+        print("NUMBER SELECT ERROR")
         
 
 
@@ -60,32 +59,32 @@ def CreateFolders():
             os.makedirs(fullPath + f"{loops}", exist_ok=True)
             loops -= 1 
     else:
-        InvokeError("NAME ERROR")
+        print("NAME ERROR")
  
 
 
-def InvokeError(errorType): 
-    errWindow = tk.Canvas(window, height=5, width=5)
+# def InvokeError(errorType): 
+#     errWindow = tk.Canvas(window, height=5, width=5)
 
-    if errorType == "SELECT DIRECTORY ERROR" : 
-        errWindow.create_text(x=100, y=100, text="Select a folder")
-        errWindow.place(x=100, y=100)
-        errWindow.config(state='readonly')
-        return
-        #print("SELECT DIRECTORY ERROR")
+#     if errorType == "SELECT DIRECTORY ERROR" : 
+#         errWindow.create_text(x=100, y=100, text="Select a folder")
+#         errWindow.place(x=100, y=100)
+#         errWindow.config(state='readonly')
+#         return
+#         #print("SELECT DIRECTORY ERROR")
     
-    if errorType == "NAME ERROR" : 
-        errWindow.create_text(x=100, y=100, text="Enter a name")
-        errWindow.place(x=100, y=100)
-        errWindow.config(state='readonly')
-        return
-        #print("NAME ERROR")
+#     if errorType == "NAME ERROR" : 
+#         errWindow.create_text(x=100, y=100, text="Enter a name")
+#         errWindow.place(x=100, y=100)
+#         errWindow.config(state='readonly')
+#         return
+#         #print("NAME ERROR")
 
-    if errorType == "NUMBER SELECT ERROR" :
-        errWindow.create_text(x=100, y=100, text="Choose a number")
-        errWindow.place(x=100, y=100)
-        errWindow.config(state='readonly')
-        return
+#     if errorType == "NUMBER SELECT ERROR" :
+#         errWindow.create_text(x=100, y=100, text="Choose a number")
+#         errWindow.place(x=100, y=100)
+#         errWindow.config(state='readonly')
+#         return
         #print ("NUMBER SELECT ERROR")
 
 
@@ -97,45 +96,31 @@ window = tk.Tk()
 window.geometry("300x400")
 window.title('Folder Creator')
 window.attributes('-alpha', 0.97)
-window.attributes('-topmost', "true")
 window.attributes('-transparent', "true")
-window.config(background="#25272A")
-window.maxsize(width=300, height=400)
-window.minsize(width=300, height=400)
+window.config(background="#2B2929")
+window.maxsize(width=430, height=80)
+window.minsize(width=430, height=80)
 #Main Window____________________________________________________________________________________________________
 
 
 
-#style 
-style = ttk.Style()
-style.theme_use("aqua")
-
-style.configure('TEntry', foreground='white', background='#818284', bd=9)
-style.configure('TButton', foreground='black', font=('San Fransisco', 12), bd=0)
-#Style_______________________________________________________________________________________________
-
-
-
 #Choosing Directory 
-dirField = tk.Entry(window)
-dirField.place(x=105, y=10)
+dirField = tk.Entry(window, width=31)
+dirField.place(x=109, y=10)
 dirField.insert(0, folderPath)
-dirField.config(state='readonly')
+dirField.config(state='readonly', bd=0, bg="red")
 
-dirBtn = tk.Button(window, text="Choose", command = lambda : (folderPath := SelectDirectory()))
-dirBtn.config(width=10, bd=0, highlightthickness=0, font=('San Fransisco', 12))
-dirBtn.place(x=8, y=15)
+dirBtn = tk.Button(window, command = lambda : (folderPath := SelectDirectory()), text="Choose")
+dirBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bd=100, bg="red")
+dirBtn.place(x=15, y=13)
 #Choosing Directory______________________________________________________________________________________________ 
 
 
 
 #Entering Name
-nameLbl = tk.Label(window, text="Name : ")
-nameLbl.place(x=0, y=200)
-
-nameField = tk.Entry(window, width=26)
+nameField = tk.Entry(window, width=25)
 nameField.config(bd=0)
-nameField.place(x=50, y=198)
+nameField.place(x=109, y=45)
 nameField.insert(0, foldersName)
 nameField.bind("<FocusIn>", lambda a: nameField.delete(0, 'end'))
 #Entering Name__________________________________________________________________________________________________
@@ -143,22 +128,18 @@ nameField.bind("<FocusIn>", lambda a: nameField.delete(0, 'end'))
 
 
 #Selecting Quanity 
-quanLbl = tk.Label(window, text="Folder Quantity :")
-quanLbl.place(x=0, y=250)
-
-numList = list(range(1, 100))
 windowVar = tk.StringVar(window)
-windowVar.set(numList[0])
 
-quanDrp = tk.OptionMenu(window, windowVar, *numList)
-quanDrp.place(x=125, y=250)
+quanSpn = tk.Spinbox(window, textvariable=windowVar, increment=1, width=3, from_=2, to=100, bd=0)
+quanSpn.place(x=348, y=45)
 #Selecting Quanity______________________________________________________________________________________________ 
 
 
 
 #Creating Folders 
-submitBtn = tk.Button(window, text="Create Folders", command = lambda : windowVar.set(CreateFolders()))
-submitBtn.place(x=98, y=300)
+submitBtn = tk.Button(window, text="Create", command = lambda : windowVar.set(CreateFolders()))
+submitBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bd=0)
+submitBtn.place(x=15, y=48)
 #Creating Folders_______________________________________________________________________________________________
 
 
