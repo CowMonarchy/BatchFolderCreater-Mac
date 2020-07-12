@@ -18,7 +18,7 @@ def SelectDirectory():
     dire = tkf.askdirectory()
 
     dirField.delete(0, 'end')
-    dirField.config(fg="white")
+    dirField.config(fg='white')
     dirField.insert(0, dire)
     
     return dire
@@ -74,7 +74,7 @@ def CreateFolders():
     folderPath = dirField.get()
     foldersName = nameField.get()
 
-    print("THE FOLDER NAME IS" + foldersName)
+
     loops = int(folderNum)
     fullPath = folderPath + '/' + foldersName
 
@@ -83,6 +83,7 @@ def CreateFolders():
         while loops > 0 :
             os.makedirs(fullPath + f"{loops}", exist_ok=True)
             loops -= 1 
+
 
     window.destroy()
    
@@ -95,7 +96,7 @@ window = tk.Tk()
 window.geometry("300x400")
 window.title('Folder Creator')
 window.attributes('-alpha', 0.97)
-window.attributes('-transparent', "true")
+window.attributes('-transparent', 'true')
 window.config(background="#2B2929")
 window.maxsize(width=410, height=80)
 window.minsize(width=410, height=80)
@@ -105,13 +106,13 @@ window.minsize(width=410, height=80)
 
 #Choosing Directory 
 dirField = tk.Entry(window, width=36)
-dirField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg="#747272", fg="#908E8E")
+dirField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg='#747272', fg='#908E8E')
 dirField.insert(0, folderPath)
 dirField.bind("<Leave>", ConditionCheck)
 dirField.place(x=109, y=13)
 
-dirBtn = tk.Button(window, command = lambda : (folderPath := SelectDirectory()), text="Choose")
-dirBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bg="#727171", fg="black")
+dirBtn = tk.Button(window, command = lambda : (folderPath := SelectDirectory()), text='Choose')
+dirBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bg='#727171', fg='black')
 dirBtn.bind("<Leave>", ConditionCheck)
 dirBtn.place(x=15, y=13)
 #Choosing Directory__________________________________________________________________
@@ -120,7 +121,7 @@ dirBtn.place(x=15, y=13)
 
 #Entering Name
 nameField = tk.Entry(window, width=28)
-nameField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg="#747272", fg="#908E8E")
+nameField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg='#747272', fg='#908E8E')
 nameField.insert(0, foldersName)
 nameField.bind("<Button-1>", EnterName)
 nameField.bind("<Leave>", ConditionCheck)
@@ -133,7 +134,7 @@ nameField.place(x=109, y=48)
 windowVar = tk.StringVar(window)
 
 quanSpn = tk.Spinbox(window, textvariable=windowVar, highlightthickness=0)
-quanSpn.config(increment=1, width=3, from_=2, to=100, bg="#747272", fg="#908E8E", bd=0)
+quanSpn.config(increment=1, width=3, from_=2, to=100, bg='#747272', fg='#908E8E', bd=0)
 quanSpn.bind("<Button-1>", ChooseQuan)
 quanSpn.bind("<Leave>", ConditionCheck)
 quanSpn.place(x=348, y=47)
@@ -142,7 +143,7 @@ quanSpn.place(x=348, y=47)
 
 
 #Creating Folders 
-submitBtn = tk.Button(window, text="Create", command = lambda : windowVar.set(CreateFolders()))
+submitBtn = tk.Button(window, text='Create', command = lambda : windowVar.set(CreateFolders()))
 submitBtn.config(highlightthickness=0, state='disabled', font=('San Fransisco', 12), width=10, bd=0)
 submitBtn.place(x=15, y=48)
 #Creating Folders____________________________________________________________________________________________________________________________
