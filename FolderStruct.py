@@ -7,8 +7,9 @@ import tkinter.filedialog as tkf
 
 #--Variables--
 folderNum = 'None'
-folderPath = "                        Select a folder                        "
 foldersName = "             Please enter a name             "
+folderPath = "                        Select a folder                        "
+
 
 
 
@@ -27,6 +28,38 @@ def SelectDirectory():
 def EnterName(*kwargs):
     nameField.delete(0, 'end')
     nameField.config(fg='white')
+    submitBtn.config(state='disabled')
+
+
+
+def ChooseQuan(*kwargs):
+    quanSpn.config(fg='white')
+
+
+
+def ConditionCheck(*kwargs):
+    global folderNum
+    global folderPath
+    global foldersName
+    global windowVar
+    global quanSpn
+    
+    folderNum = windowVar.get()
+    folderPath = dirField.get()
+    foldersName = nameField.get()
+
+    if folderNum.isdigit() == False:
+        submitBtn.config(state='disabled')
+        return
+    if  len(foldersName) == 0 or foldersName.isspace() or foldersName == "             Please enter a name             " :
+        submitBtn.config(state='disabled')
+        return
+    if len(folderPath) == 0 or folderPath.isspace() or folderPath == "                        Select a folder                        " :
+        submitBtn.config(state='disabled')
+        return
+    
+
+    submitBtn.config(state='normal')
 
 
 
@@ -41,14 +74,8 @@ def CreateFolders():
     folderPath = dirField.get()
     foldersName = nameField.get()
 
-    if folderNum == 'None':
-       windowVar.set('2')
-       quanSpn.update()
-       folderNum = windowVar.get()
-
-
+    print("THE FOLDER NAME IS" + foldersName)
     loops = int(folderNum)
-    print(loops)
     fullPath = folderPath + '/' + foldersName
 
 
@@ -56,6 +83,8 @@ def CreateFolders():
         while loops > 0 :
             os.makedirs(fullPath + f"{loops}", exist_ok=True)
             loops -= 1 
+
+    window.destroy()
    
 
 
@@ -75,13 +104,15 @@ window.minsize(width=410, height=80)
 
 
 #Choosing Directory 
-dirField = tk.Entry(window, width=32)
+dirField = tk.Entry(window, width=36)
 dirField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg="#747272", fg="#908E8E")
 dirField.insert(0, folderPath)
+dirField.bind("<Leave>", ConditionCheck)
 dirField.place(x=109, y=13)
 
 dirBtn = tk.Button(window, command = lambda : (folderPath := SelectDirectory()), text="Choose")
-dirBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bd=100, bg="#737171")
+dirBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bg="#727171", fg="black")
+dirBtn.bind("<Leave>", ConditionCheck)
 dirBtn.place(x=15, y=13)
 #Choosing Directory__________________________________________________________________
 
@@ -92,22 +123,27 @@ nameField = tk.Entry(window, width=28)
 nameField.config(highlightthickness=0, font=('San Fransisco', 12), bd=0, bg="#747272", fg="#908E8E")
 nameField.insert(0, foldersName)
 nameField.bind("<Button-1>", EnterName)
+nameField.bind("<Leave>", ConditionCheck)
 nameField.place(x=109, y=48)
 #Entering Name_______________________________________________________________________________________________
+
 
 
 #Selecting Quanity 
 windowVar = tk.StringVar(window)
 
-quanSpn = tk.Spinbox(window, textvariable=windowVar, increment=1, width=3, from_=2, to=100, bd=0)
-quanSpn.place(x=348, y=45)
+quanSpn = tk.Spinbox(window, textvariable=windowVar, highlightthickness=0)
+quanSpn.config(increment=1, width=3, from_=2, to=100, bg="#747272", fg="#908E8E", bd=0)
+quanSpn.bind("<Button-1>", ChooseQuan)
+quanSpn.bind("<Leave>", ConditionCheck)
+quanSpn.place(x=348, y=47)
 #Selecting Quanity_____________________________________________________________________________________________________________
 
 
 
 #Creating Folders 
 submitBtn = tk.Button(window, text="Create", command = lambda : windowVar.set(CreateFolders()))
-submitBtn.config(highlightthickness=0, font=('San Fransisco', 12), width=10, bd=0)
+submitBtn.config(highlightthickness=0, state='disabled', font=('San Fransisco', 12), width=10, bd=0)
 submitBtn.place(x=15, y=48)
 #Creating Folders____________________________________________________________________________________________________________________________
 
