@@ -21,6 +21,75 @@
 					<true/>
 					<key>Types</key>
 					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>2.1.1</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict/>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.path</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Get Selected Finder Items 2.action</string>
+				<key>ActionName</key>
+				<string>Get Selected Finder Items</string>
+				<key>ActionParameters</key>
+				<dict/>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.GetSelectedFinderItems2</string>
+				<key>CFBundleVersion</key>
+				<string>2.1.1</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryFilesAndFolders</string>
+				</array>
+				<key>Class Name</key>
+				<string>AMGetSelectedFinderItemsAction</string>
+				<key>InputUUID</key>
+				<string>02F177DE-F50D-4F07-98C9-763FCB52AF0A</string>
+				<key>Keywords</key>
+				<array/>
+				<key>OutputUUID</key>
+				<string>5A8518D0-C8E4-4D10-9384-BDBB7427C15B</string>
+				<key>UUID</key>
+				<string>180FA064-49D5-4237-8CE0-832C5DFE6235</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Finder</string>
+				</array>
+				<key>arguments</key>
+				<dict/>
+			</dict>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
 						<string>com.apple.cocoa.string</string>
 					</array>
 				</dict>
@@ -61,12 +130,12 @@
 					<key>COMMAND_STRING</key>
 					<string>export PATH=/usr/local/bin:$PATH
 cd /Library/Scripts/BatchCreator 
-Python3 FolderStruct.py
+Python3 FolderStruct.py $1
 </string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>shell</key>
 					<string>/bin/bash</string>
 					<key>source</key>
@@ -175,7 +244,7 @@ Python3 FolderStruct.py
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>328.000000:305.000000</string>
+				<string>349.000000:370.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -184,7 +253,38 @@ Python3 FolderStruct.py
 		</dict>
 	</array>
 	<key>connectors</key>
-	<dict/>
+	<dict>
+		<key>3E23A4B0-B3BC-4312-93FE-E462602EF864</key>
+		<dict>
+			<key>from</key>
+			<string>180FA064-49D5-4237-8CE0-832C5DFE6235 - 180FA064-49D5-4237-8CE0-832C5DFE6235</string>
+			<key>to</key>
+			<string>739D2521-4E7C-4D6F-909C-8AF43C29C823 - 739D2521-4E7C-4D6F-909C-8AF43C29C823</string>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<array>
+		<dict>
+			<key>UUID</key>
+			<string>B618B8B0-B5C7-4428-87C3-52BA03F69D95</string>
+			<key>identifier</key>
+			<string>com.apple.Automator.Variable.Path</string>
+			<key>name</key>
+			<string>Destination Path</string>
+			<key>value</key>
+			<string>/Library/NetBoot/NetBootSP0</string>
+		</dict>
+		<dict>
+			<key>UUID</key>
+			<string>8C5D3DB1-8FDA-49D7-8303-EFFFD671BD9B</string>
+			<key>identifier</key>
+			<string>com.apple.Automator.Variable.Path</string>
+			<key>name</key>
+			<string>Destination Path 1</string>
+			<key>value</key>
+			<string>/Library/NetBoot/NetBootSP0</string>
+		</dict>
+	</array>
 	<key>workflowMetaData</key>
 	<dict>
 		<key>applicationBundleID</key>
