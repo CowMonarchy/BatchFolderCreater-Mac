@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 import os
+import sys
 import tkinter as tk
 import tkinter.font as tf
 import tkinter.filedialog as tkf
