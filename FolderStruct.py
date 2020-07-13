@@ -10,14 +10,14 @@ import tkinter.filedialog as tkf
 #--Variables--
 folderNum = 'None'
 foldersName = "             Please enter a name             "
-folderPath = "                        Select a folder                        "
+folderPath = sys.argv[1]
 
-
+#testPath = sys.argv
 
 
 #--Functions--
 def SelectDirectory():
-    dire = tkf.askdirectory()
+    dire = os.getcwd()
 
     dirField.delete(0, 'end')
     dirField.config(fg='white')
